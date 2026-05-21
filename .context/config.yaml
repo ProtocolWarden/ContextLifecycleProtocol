@@ -1,0 +1,15 @@
+# ContextLifecycleProtocol — reference config
+# This is the protocol definition repo, not a runtime consumer.
+# Config exists for hook testing only; not used operationally.
+clp_version: "0.1"
+repo: "ContextLifecycleProtocol"
+
+guard:
+  require_capsule: false
+  enforce_lease: true
+  capsule_path: ".context/active/"
+  checkpoint_path: ".context/checkpoints/"
+  handoff_path: ".context/handoffs/"
+
+loop:
+  checkpoint_on_stop: true
