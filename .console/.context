@@ -1,6 +1,6 @@
 # OperatorConsole Context — ContextLifecycleProtocol
 
-_Generated 2026-05-21 04:17 · Branch: main · Profile: ContextLifecycleProtocol_
+_Generated 2026-05-21 05:43 · Branch: main · Profile: ContextLifecycleProtocol_
 
 This is your compiled startup context. Read it before acting.
 The source files in `.console/` are the editable truth — this file is generated.
@@ -98,6 +98,11 @@ _Completed items can be archived to log.md. This is not the primary task tracker
 ## Log
 
 # Log
+
+## 2026-05-21 — Add closing fence to console-context block
+
+Added <!-- /console-context --> end marker so OperatorConsole only replaces its
+managed block and leaves repo-owned content below it untouched.
 
 _Chronological continuity log. Decisions, stop points, what changed and why._
 _Not a task tracker — that's backlog.md. Keep entries concise and dated._
@@ -1124,4 +1129,4 @@ _(none)_
 - **Repo**: ContextLifecycleProtocol
 - **Repo root**: `/home/dev/Documents/GitHub/ContextLifecycleProtocol`
 - **Branch**: `main`
-- **Generated**: 2026-05-21 04:17 · Profile: ContextLifecycleProtocol
+- **Generated**: 2026-05-21 05:43 · Profile: ContextLifecycleProtocol
