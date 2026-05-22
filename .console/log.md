@@ -1,4 +1,8 @@
 # Log
+## 2026-05-22 — Pin repograph to git tag v0.2.0 (was file:// local pin)
+
+Follow-up to ADR 0002 P2/P4 release. Switched `repograph` dependency from a local file:// pin (dev-only) to `git+https://github.com/ProtocolWarden/RepoGraph.git@v0.2.0`. Reproducible across machines and CI. Local editable installs (`pip install -e ../RepoGraph`) still override the pin for active development.
+
 
 ## 2026-05-22 — P4: public lifecycle API (hydrate / capture / peek)
 
