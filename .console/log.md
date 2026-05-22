@@ -1,5 +1,42 @@
 # Log
 
+## 2026-05-22 — P4: public lifecycle API (hydrate / capture / peek)
+
+Branch: `feat/p4-public-api`. Version bumped to 0.3.0.
+
+- `src/context_lifecycle/lifecycle.py` (NEW, ~220 LOC): implements `hydrate`,
+  `capture`, `peek`, and the `HydratedContext` dataclass. Reads/writes go
+  through the existing `session.paths.SessionPaths` + `io.yaml_io` helpers
+  — no new I/O primitives.
+  - `hydrate(lineage_id, work_item)` loads `active/<lineage_id>.yaml` if
+    present (resume) or initializes a fresh capsule with `status="fresh"`,
+    `created_at`, and the work_item attached. Never writes. Also includes
+    the latest checkpoint (lexicographic sort of `checkpoints/*.yaml`,
+    which coincides with chronological order per the P0.5 ISO-8601
+    filename convention) and any active handoff matching the lineage.
+  - `capture(lineage_id, result)` classifies result shape (capsule /
+    checkpoint / handoff) and writes to the corresponding subdir.
+    Pre-write: pulls every repo named in the result (top-level
+    `repo`/`repos`/`targets` + `worker_scope.repo`) and calls
+    `RepoGraph().can_anchor_host(anchor, repo)` for each. First denial
+    raises `BoundaryViolation` and nothing is written.
+  - `peek(work_item)` returns the active capsule dict for the work_item's
+    `lineage_id` (or `lineage`/`id`), or `None`. Read-only; never falls
+    back to checkpoints/handoffs.
+  - All three hard-error with `AnchorMissing` / `SessionNotStarted` when
+    env vars unset (P0.6 hard-error policy).
+- `src/context_lifecycle/__init__.py`: re-exports the new symbols; bumps
+  `__version__` to `0.3.0`.
+- `tests/test_lifecycle.py` (NEW, 18 tests): hydrate fresh / resume /
+  checkpoint pickup / anchor-unset / session-unset; capture for each
+  subdir (capsule/checkpoint/handoff); RepoGraph called per repo;
+  BoundaryViolation aborts the write atomically; no-repo capture skips
+  RepoGraph entirely; peek hit / miss / no-lineage / no-write / anchor-
+  unset; public API import smoke.
+- Suite: 72 → 90 pass.
+
+**Stop point:** staged, not committed. Parent handles git ops.
+
 ## 2026-05-22 — P2: wire `cl session start` through RepoGraph
 
 Branch: `feat/p2-repograph-integration`.

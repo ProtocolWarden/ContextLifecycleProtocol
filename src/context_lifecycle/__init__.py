@@ -9,8 +9,14 @@ from context_lifecycle.errors import (
     ManifestNotFound,
     SessionNotStarted,
 )
+from context_lifecycle.lifecycle import (
+    HydratedContext,
+    capture,
+    hydrate,
+    peek,
+)
 
-__version__ = "0.1.0"
+__version__ = "0.3.0"
 
 __all__ = [
     "__version__",
@@ -21,22 +27,8 @@ __all__ = [
     "BoundaryViolation",
     "ManifestNotFound",
     "SessionNotStarted",
+    "HydratedContext",
     "hydrate",
     "capture",
     "peek",
 ]
-
-
-def hydrate(lineage_id: str, work_item: object) -> None:  # pragma: no cover - P4 stub
-    """Hydrate worker context before dispatch. Implemented in P4."""
-    raise NotImplementedError("hydrate is implemented in Phase 4")
-
-
-def capture(lineage_id: str, result: object) -> None:  # pragma: no cover - P4 stub
-    """Capture worker result after dispatch. Implemented in P4."""
-    raise NotImplementedError("capture is implemented in Phase 4")
-
-
-def peek(work_item: object) -> None:  # pragma: no cover - P4 stub
-    """Read-only context inspection. Implemented in P4."""
-    raise NotImplementedError("peek is implemented in Phase 4")
