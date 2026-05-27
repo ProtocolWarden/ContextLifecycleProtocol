@@ -24,14 +24,12 @@ audit:
 
   exclude_paths:
     # errors.py is a pure typed-exception hierarchy (no logic to unit test).
-    # cli/main.py is a thin Typer wiring entrypoint (sub-apps are tested via their
-    # own modules and the `cl` CliRunner tests).
-    T1:
+    # cli/main.py + cli/context.py are thin Typer wiring: commands are invoked by
+    # CLI string (so T1 can't see them by symbol), and exercised via CliRunner
+    # tests; the real logic (_load_json) is unit-tested directly.
+    T1: &cli_shims
       - src/context_lifecycle/errors.py
       - src/context_lifecycle/cli/main.py
-    T6:
-      - src/context_lifecycle/errors.py
-      - src/context_lifecycle/cli/main.py
-    T7:
-      - src/context_lifecycle/errors.py
-      - src/context_lifecycle/cli/main.py
+      - src/context_lifecycle/cli/context.py
+    T6: *cli_shims
+    T7: *cli_shims

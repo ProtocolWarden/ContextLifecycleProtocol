@@ -4,6 +4,7 @@ from __future__ import annotations
 
 import typer
 
+from context_lifecycle.cli import context as context_cmd
 from context_lifecycle.cli import hook as hook_cmd
 from context_lifecycle.cli import session as session_cmd
 
@@ -16,6 +17,7 @@ app = typer.Typer(
 
 app.add_typer(hook_cmd.app, name="hook", help="Claude Code hook adapters (pre_tool_use, stop).")
 app.add_typer(session_cmd.app, name="session", help="Session anchor lifecycle (start, show, end).")
+app.add_typer(context_cmd.app, name="context", help="Session-boundary cognition (hydrate, capture, peek) for non-hook CLIs.")
 
 
 if __name__ == "__main__":  # pragma: no cover
