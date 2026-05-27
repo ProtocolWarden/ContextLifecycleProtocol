@@ -179,3 +179,8 @@ _Free-form scratch. Clear periodically — old entries can be deleted once no lo
 
 - Added adapters/install.sh (committed, idempotent, re-syncs drift): copies the canonical claude hooks into a repo .claude/hooks/ and merges the hook wiring into settings.json (preserving other keys). Fixes the divergent per-repo hook copies + the untracked-settings problem. --cli flag is extensible; codex/aider skip gracefully until their adapters land (phase 2/3). Test: adapters/install_test.sh (6/6).
 - Foundation for: codex adapter (plugin/MCP), aider adapter (session-boundary), and rewiring OC panes + OC/VF loops to anchor via `cl session start` (= owning manifest, RepoGraph-resolved). RepoGraph already provides repo→manifest (repo_owner map).
+
+## 2026-05-24 — `cl context` CLI (Phase 2: session-boundary cognition)
+
+- Added `cl context hydrate|capture|peek` (cli/context.py) wrapping lifecycle.hydrate/capture/peek, so non-hook CLIs (aider; codex until a native plugin) integrate at session edges. JSON args accept literal/@file/stdin. Tests: tests/test_context_cli.py (7). cli/context.py added to T1/T6/T7 shim exclusions (Typer wiring; _load_json unit-tested, commands via CliRunner).
+- NOTE: codex native per-tool plugin deferred — codex hooks are a plugin (post-cutoff format); codex uses session-boundary for now (decision-compliant fallback).
